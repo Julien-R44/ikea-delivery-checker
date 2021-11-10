@@ -28,5 +28,11 @@ pub fn parse_arguments() -> ArgMatches<'static> {
                 .value_name("TOKEN")
                 .help("Token ( x-client-id )"),
         )
+        .arg(
+            Arg::with_name("discord-webhook")
+            .long("discord-webhook")
+            .value_name("WEBHOOK URL")
+            .help("Give a discord webhook to be called when a product became available."),
+        )
         .get_matches();
 }
