@@ -1,21 +1,17 @@
 mod delivery_checker;
-
 use delivery_checker::check_if_product_is_home_deliverable;
-
 mod cli;
 use cli::parse_arguments;
-
 mod utils;
-use rustbreak::{deser::Ron, FileDatabase};
-use std::collections::HashMap;
 use utils::send_discord_message;
+mod file_database;
+use file_database::FileDatabase;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let matches = parse_arguments();
 
-    let db = FileDatabase::<HashMap<String, bool>, Ron>::load_from_path_or_default("db.ron")?;
-    db.load()?;
+    let db = FileDatabase::new(None).unwrap();
 
     let product_ids = matches.value_of("product-ids").unwrap().split(",");
     let token = matches.value_of("token").unwrap();
@@ -35,13 +31,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             };
 
             let product_db_key = format!("{}-{}", product_id, zipcode);
-            let previous_product_availability = db.read(|db| {
-                let key_value = db.get_key_value(&product_db_key);
-                if key_value.is_none() {
-                    return false;
-                }
-                return *key_value.unwrap().1;
-            })?;
+            let previous_product_availability = db.get_key_value(&product_db_key).unwrap();
 
             let message = format!(
                 "Product {} {} for home delivery in {}",
@@ -58,14 +48,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                         false => 0xFF0000,
                     },
                     webhook_url,
-                ).await?;
+                )
+                .await?;
             }
 
-            db.write(|db| {
-                db.insert(product_db_key.into(), is_available);
-            })?;
-
-            db.save()?;
+            db.save_key_value(&product_db_key, is_available)?;
         }
     }
 

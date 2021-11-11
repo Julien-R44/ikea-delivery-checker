@@ -1,5 +1,6 @@
 use reqwest::Response;
 use serde::Serialize;
+
 #[derive(Serialize, Clone)]
 pub struct Embed {
     pub title: Option<String>,
