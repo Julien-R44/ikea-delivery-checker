@@ -58,7 +58,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                         false => 0xFF0000,
                     },
                     webhook_url,
-                );
+                ).await?;
             }
 
             db.write(|db| {

@@ -13,6 +13,7 @@ serde_json = "1"
 indicatif = "0.16.2"
 futures = "0.3"
 DiscordMessenger = "1.0.0"
+serde = { version = "1.0", features = ["derive"] }
 
 [dependencies.rustbreak]
 version = "2"
