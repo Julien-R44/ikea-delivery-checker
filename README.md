@@ -10,17 +10,17 @@ I did this script mainly to discover Rust language. As a result the code must su
 
 ```
 USAGE:
-    ikea-delivery-checker --products-ids <PRODUCT_ID(S)> --token <TOKEN> --zipcodes <ZIPCODE(s)>
+    ikea-delivery-checker.exe [OPTIONS] --products-ids <PRODUCT_ID(S)> --token <TOKEN> --zipcodes <ZIPCODE(s)>
 
-FLAGS:
-    -h, --help       Prints help information
+FLAGS:    -h, --help       Prints help information
     -V, --version    Prints version information
 
 OPTIONS:
-    -i, --products-ids <PRODUCT_ID(S)>    The ids of product you want to check, comma-separated
-    -t, --token <TOKEN>                   Token ( x-client-id )
-    -z, --zipcodes <ZIPCODE(s)>           Home delivery zipcodes, comma-separated
-
+        --discord-webhook <WEBHOOK URL>    Give a discord webhook to be called when a product became available.
+    -i, --products-ids <PRODUCT_ID(S)>     The id of product you want to check
+    -t, --token <TOKEN>                    Token ( x-client-id )
+    -z, --zipcodes <ZIPCODE(s)>            Home delivery zipcode
+    
 EXAMPLE: 
-ikea-delivery-checker --products-ids=1234,5678 --token=12345678 --zipcodes=12345
+    ikea-delivery-checker --products-ids=1234,5678 --token=12345678 --zipcodes=12345
 ```
