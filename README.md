@@ -1,6 +1,9 @@
 # ikea-delivery-checker
 
 Basic script that verify if one or more products are available for home delivery in one or multiple zipcodes by calling the IKEA API. 
+
+A notification can be sent on discord when the availability of a product for delivery changes. A [file database](https://github.com/TheNeikos/rustbreak) is used to send the notification only when the availability status changes.
+
 I did this script mainly to discover Rust language. As a result the code must surely be ugly or badly done.
 
 ## Usage
